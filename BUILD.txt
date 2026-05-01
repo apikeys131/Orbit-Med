@@ -1,0 +1,96 @@
+================================================================
+  Orbit-Med — Build Instructions
+  SDL2 + SDL2_image + SDL2_ttf | C++17 | g++ / clang++
+================================================================
+
+TESTED ON
+---------
+  Compiler : g++ 13.x (MinGW-w64) / g++ 12.x (GCC on Ubuntu)
+  OS       : Windows 11 / Ubuntu 22.04
+  SDL2     : 2.28.x
+  SDL2_ttf : 2.22.x
+  SDL2_img : 2.8.x
+
+----------------------------------------------------------------
+BEFORE YOU BUILD — copy logo file
+----------------------------------------------------------------
+Copy icon.png from:
+  orbit-geoV1/orbit-geo/public/icon.png
+Rename it to:
+  logo.png
+Place it in the SAME folder as the compiled executable.
+
+----------------------------------------------------------------
+WINDOWS (MinGW-w64 / MSYS2)
+----------------------------------------------------------------
+Step 1 — Install SDL2 libraries via MSYS2 (run in MSYS2 shell):
+  pacman -S mingw-w64-x86_64-SDL2 \
+             mingw-w64-x86_64-SDL2_image \
+             mingw-w64-x86_64-SDL2_ttf
+
+Step 2 — Compile (run in MSYS2 shell, cd to project folder):
+  g++ -std=c++17 -O2 -o orbitmed.exe main.cpp \
+      -lSDL2 -lSDL2_image -lSDL2_ttf \
+      -mwindows
+
+  (Remove -mwindows if you want a console window for debug output)
+
+Step 3 — Run:
+  ./orbitmed.exe
+
+  Or double-click orbitmed.exe in Explorer (ensure DLLs are in PATH).
+
+NOTE: If DLLs are missing at runtime, copy the following from
+  C:\msys64\mingw64\bin\ into the same folder as orbitmed.exe:
+    SDL2.dll
+    SDL2_image.dll
+    SDL2_ttf.dll
+    libfreetype-6.dll  (dependency of SDL2_ttf)
+    zlib1.dll
+
+----------------------------------------------------------------
+LINUX (Ubuntu / Debian)
+----------------------------------------------------------------
+Step 1 — Install:
+  sudo apt update
+  sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev
+
+Step 2 — Compile:
+  g++ -std=c++17 -O2 -o orbitmed main.cpp \
+      -lSDL2 -lSDL2_image -lSDL2_ttf -lm
+
+Step 3 — Run:
+  ./orbitmed
+
+----------------------------------------------------------------
+macOS (Homebrew)
+----------------------------------------------------------------
+Step 1 — Install:
+  brew install sdl2 sdl2_image sdl2_ttf
+
+Step 2 — Compile:
+  g++ -std=c++17 -O2 -o orbitmed main.cpp \
+      $(sdl2-config --cflags --libs) \
+      -lSDL2_image -lSDL2_ttf
+
+Step 3 — Run:
+  ./orbitmed
+
+----------------------------------------------------------------
+KEYBOARD SHORTCUTS (in-app)
+----------------------------------------------------------------
+  F1   Sort by Name (A→Z)
+  F2   Sort by Price (low→high)
+  F3   Sort by Category (A→Z)
+  F4   Sort by Dosage (A→Z)
+
+  F5   Show All medicines
+  F6   Show OTC only
+  F7   Show Rx only
+
+  Backspace   Delete last character in search
+  Escape      Quit
+
+Type anything in the search bar to live-filter by
+name, category, or use case simultaneously.
+================================================================
