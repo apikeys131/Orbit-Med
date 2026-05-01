@@ -1,2 +1,2 @@
 # Orbit-Med
-medicine opensource good
+medicine source-available good
